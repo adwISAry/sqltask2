@@ -1,0 +1,105 @@
+CREATE TABLE Position 
+(
+    PositionId INT PRIMARY KEY,
+    Name VARCHAR(255)
+);
+
+CREATE TABLE Filial 
+(
+    FilialId INT PRIMARY KEY,
+    Name VARCHAR(255) 
+);
+
+CREATE TABLE Product (
+    ProductId INT PRIMARY KEY,
+    Name VARCHAR(255),
+    PurchasePrice DECIMAL,
+    SellingPrice DECIMAL
+);
+
+CREATE TABLE Worker 
+(
+    WorkerId INT PRIMARY KEY,
+    Surname VARCHAR(255),
+    Name VARCHAR(255),
+    FathersName VARCHAR(255),
+    PositionId INT,
+    Salary DECIMAL,
+    FOREIGN KEY (PositionId) REFERENCES Position(PositionId)
+);
+
+CREATE TABLE Sale 
+(
+    SaleId INT PRIMARY KEY,
+    ProductId INT,
+    WorkerId INT,
+    FilialId INT,
+    SaleDate DATE,
+    PurchasePrice DECIMAL,
+    SellingPrice DECIMAL,
+    FOREIGN KEY (ProductId) REFERENCES Product(ProductId),
+    FOREIGN KEY (WorkerId) REFERENCES Worker(WorkerId),
+    FOREIGN KEY (FilialId) REFERENCES Filial(FilialId)
+);
+insert into Position (PositionId, Name) VALUES
+(1, 'Boss'),
+(2, 'Manager'),
+(3, 'Sales Representative'),
+(4, 'Accountant');
+
+INSERT INTO Filial (FilialId, Name) VALUES
+(1, 'Sahil'),
+(2, '28 May'),
+(3, 'Nizami'),
+(4, 'Icherisheher');
+
+INSERT INTO Product (ProductId, Name, PurchasePrice, SellingPrice) VALUES
+(1, 'Laptop', 800, 1200),
+(2, 'Smartphone', 500, 800),
+(3, 'Headphones', 50, 80),
+(4, 'Coffee Maker', 100, 150),
+(5, 'Desk Chair', 150, 200),
+(6, 'Bluetooth Speaker', 30, 50),
+(7, 'Digital Camera', 200, 350),
+(8, 'Fitness Tracker', 80, 120),
+(9, 'External Hard Drive', 120, 180),
+(10, 'Desk Lamp', 20, 30);
+
+
+INSERT INTO Worker (WorkerId,Name, Surname, FathersName, PositionId, Salary) VALUES
+(1,'Isa', 'Aliev', 'xxx', 1, 2000),
+(2,'Ali', 'Habibli', 'xxx', 2, 1000),
+(3,'Nigar', 'Rustamova', 'Vagif', 3, 1200),
+(4,'Elvin', 'Mammadov', 'Gabil', 1, 1800),
+(5,'Aynur', 'Aliyeva', 'Nizami', 2, 1500),
+(6,'Ramin', 'Nasirov', 'Fikrat', 3, 1300),
+(7,'Gulnar', 'Mammadova', 'Firudin', 1, 2200),
+(8,'Vugar', 'Mustafayev', 'Orkhan', 2, 1100),
+(9,'Aysel', 'Ismayilova', 'Rauf', 3, 1600),
+(10,'Elchin', 'Suleymanov', 'Rashad', 1, 2000);
+
+
+Insert into Sale ( SaleId ,ProductId ,WorkerId, FilialId , SaleDate , PurchasePrice ,SellingPrice) VALUES
+(1, 1, 1, 1, '2023-11-20', 800, 1200),
+(2, 2, 2, 2, '2023-11-21', 500, 800),
+(3, 3, 3, 3, '2023-11-22', 50, 80),
+(4, 4, 4, 4, '2023-11-23', 100, 150),
+(5, 5, 5, 1, '2023-11-24', 150, 200),
+(6, 6, 6, 2, '2023-11-25', 30, 50),
+(7, 7, 7, 3, '2023-11-26', 200, 350),
+(8, 8, 8, 4, '2023-11-27', 80, 120),
+(9, 9, 9, 1, '2023-11-28', 120, 180),
+(10, 10, 10, 2, '2023-11-29', 20, 30);
+
+
+
+
+SELECT SUM(SellingPrice) AS TotalSales
+FROM Sale;
+ 
+
+
+--yaza bilmedim bu hissesini 
+--SELECT SUM(SellingPrice) AS TotalSales
+--FROM Sale
+--WHERE MONTH(SaleDate) = 
